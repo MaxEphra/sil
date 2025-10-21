@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Sil Marques Hair</title>
+
+  <!-- Ícones Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: #333;
+      background-color: #fff5f9;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      width: 100%;
+      background-color: rgba(214, 51, 132, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 1.5em;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd1dc;
+    }
+
+    /* Vídeo de fundo */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+
+    section {
+      padding: 80px 20px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      color: #b80a5c;
+      font-size: 2em;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Serviços */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(214, 51, 132, 0.1);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(214, 51, 132, 0.15);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 15px;
+      height: 180px;
+      object-fit: cover;
+      border: 2px solid rgba(214, 51, 132, 0.1);
+    }
+
+    .card h3 {
+      margin-top: 10px;
+      color: #b80a5c;
+    }
+
+    .card .price {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #d63384;
+      margin: 10px 0;
+    }
+
+    .btn {
+      background: #b80a5c;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #d63384;
+      transform: scale(1.05);
+    }
+
+    /* Tabela de preços */
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background-color: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 15px;
+      border-bottom: 1px solid #f0a6c5;
+    }
+
+    th {
+      background-color: #b80a5c;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 182, 193, 0.1);
+    }
+
+    /* Formulário */
+    form {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: rgba(255, 255, 255, 0.98);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border: 1px solid rgba(214, 51, 132, 0.1);
+    }
+
+    form h3 {
+      color: #b80a5c;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 5px 0;
+      border: 1px solid #e0a6c5;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: border 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #b80a5c;
+      box-shadow: 0 0 0 2px rgba(184, 10, 92, 0.2);
+    }
+
+    input[type="time"], input[type="date"] {
+      text-align: center;
+      font-weight: bold;
+      color: #444;
+      background-color: #fff;
+    }
+
+    button[type="submit"] {
+      background-color: #b80a5c;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #d63384;
+      transform: translateY(-2px);
+    }
+
+    .aviso {
+      font-size: 0.85em;
+      color: #777;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #b80a5c;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      margin-top: 50px;
+    }
+
+    /* Botão flutuante */
+    .floating-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #b80a5c;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .floating-btn:hover {
+      transform: rotate(45deg);
+      background-color: #d63384;
+    }
+
+    .social-menu {
+      position: fixed;
+      bottom: 90px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.3s ease;
+    }
+
+    .social-menu.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .social-menu a {
+      background-color: #b80a5c;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .social-menu a:hover {
+      background-color: #d63384;
+      transform: scale(1.1);
+    }
+
+    .estoque-info {
+      color: #777;
+      font-size: 0.9em;
+      margin: 15px 0 30px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.2em; }
+      nav a { margin: 0 5px; font-size: 0.9em; }
+      .card img { height: 130px; }
+      .floating-btn { width: 50px; height: 50px; }
+      .social-menu a { width: 40px; height: 40px; font-size: 18px; }
+      table { width: 100%; font-size: 0.9em; }
+      section { padding: 60px 15px; }
+    }
+
+    @media (max-width: 480px) {
+      header { flex-direction: column; padding: 10px; }
+      header h1 { margin-bottom: 10px; }
+      nav { width: 100%; text-align: center; }
+      nav a { display: inline-block; margin: 0 8px; }
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop class="video-bg">
+    <source src="https://cdn.pixabay.com/video/2021/07/14/82309-574578090_large.mp4" type="video/mp4">
+  </video>
+
+  <header>
+    <h1>Studio Sil Marques Hair</h1>
+    <nav>
+      <a href="#servicos">Serviços</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#precos">Preços</a>
+      <a href="#agendamento">Agendamento</a>
+    </nav>
+  </header>
+
+  <section id="servicos">
+    <h2>Nossos Serviços</h2>
+    <div class="services">
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2018/02/22/17/16/hairdresser-3173438_640.jpg" alt="Corte de Cabelo">
+        <h3>Corte de Cabelo</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2023/09/03/15/41/ai-generated-8230926_640.jpg" alt="Alisamento">
+        <h3>Alisamento</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2015/12/17/09/57/colors-1097117_640.jpg" alt="Luzes">
+        <h3>Luzes</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2024/07/20/06/18/eyebrow-8907650_640.jpg" alt="Sobrancelhas">
+        <h3>Sobrancelhas</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2018/10/06/15/42/manicure-3728091_640.jpg" alt="Manicure">
+        <h3>Manicure</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2021/01/06/09/12/feet-5893684_640.jpg" alt="Pedicure">
+        <h3>Pedicure</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://media.istockphoto.com/id/1266250353/pt/foto/female-hands-and-feet-on-white-background-studio-shoot.jpg?s=612x612&w=0&k=20&c=4l_pSddZDAqVsxUGc0gjcC91NkV7NkSbVRawt9dXe10=" alt="Pé e Mão">
+        <h3>Pé e Mão</h3>
+        <button class="btn">Agendar</button>
+      </div>
+      <div class="card">
+        <img src="https://media.istockphoto.com/id/1219532888/pt/foto/hairdresser-straightens-hair-of-woman.jpg?s=612x612&w=0&k=20&c=TC-OrmVYO4DrgI2dTIQzT6HGVjWZvHeER4xBgcfg6Fk=" alt="Escova">
+        <h3>Escova</h3>
+        <button class="btn">Agendar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="produtos">
+    <h2>Nossos Produtos</h2>
+    <p class="estoque-info">* Produtos disponíveis enquanto durarem os estoques</p>
+    <div class="services">
+      <div class="card">
+        <img src="https://ikesaki.vtexassets.com/arquivos/ids/332046-800-auto?v=638465383471600000&width=800&height=auto&aspect=true" alt="Óleo Capilar">
+        <h3> Batom Dailus Matte Desenrolada </h3>
+        <div class="price">R$ 18,90 no pix</div>
+        <button class="btn" data-product="Óleo Capilar" data-price="45,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://ikesaki.vtexassets.com/arquivos/ids/301485-800-auto?v=638131130597430000&width=800&height=auto&aspect=true" alt="Shampoo Revitalizante">
+        <h3>Gloss Labial Payot Ibiza</h3>
+        <div class="price">R$ 36,00</div>
+        <button class="btn" data-product="Shampoo Revitalizante" data-price="35,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://ikesaki.vtexassets.com/arquivos/ids/337985-800-auto?v=638554542814100000&width=800&height=auto&aspect=true" alt="Mascara de Tratamento">
+        <h3>Bastão 3 em 1 Ollie Blush, Batom E Sombra</h3>
+        <div class="price">R$ 90,00</div>
+        <button class="btn" data-product="Máscara de Tratamento" data-price="55,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://ikesaki.vtexassets.com/arquivos/ids/276817-800-auto?v=637782199848500000&width=800&height=auto&aspect=true" alt="Sérum Antifrizz">
+        <h3>Pó Compacto Dailus Vegano Ultrafino D5 Médio</h3>
+        <div class="price">R$ 24,00</div>
+        <button class="btn" data-product="Sérum Antifrizz" data-price="60,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://ikesaki.vtexassets.com/arquivos/ids/327448-800-auto?v=638406007303070000&width=800&height=auto&aspect=true" alt="Condicionador Nutritivo">
+        <h3>Shampoo Haskell Bendito Loiro 500ml</h3>
+        <div class="price">R$ 62,00</div>
+        <button class="btn" data-product="Condicionador Nutritivo" data-price="38,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://ikesaki.vtexassets.com/arquivos/ids/317921-800-auto?v=638312640066770000&width=800&height=auto&aspect=true" alt="Spray Termoprotetor">
+        <h3>Condicionador Lacan Pós Química 300ml</h3>
+        <div class="price">R$ 42,00</div>
+        <button class="btn" data-product="Spray Termoprotetor" data-price="42,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://acdn-us.mitiendanube.com/stores/001/636/425/products/argola-tubo-bold-prata-pose-2-56c5173fb1f66bfe0417544900709701-640-0.webp" alt="Spray Termoprotetor">
+        <h3>Argola Tubo Bold - Prata</h3>
+        <div class="price">R$ 50,00</div>
+        <button class="btn" data-product="Spray Termoprotetor" data-price="42,00">Comprar</button>
+      </div>
+      <div class="card">
+        <img src="https://acdn-us.mitiendanube.com/stores/001/636/425/products/19-1e1ecb46f179e67f0a17501717868373-640-0.webp" alt="Spray Termoprotetor">
+        <h3>Conjunto Jasmine - Prata</h3>
+        <div class="price">R$ 99,00</div>
+        <button class="btn" data-product="Spray Termoprotetor" data-price="42,00">Comprar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="precos">
+    <h2>Tabela de Preços</h2>
+    <table>
+      <tr><th>Serviço</th><th>Valor (R$)</th></tr>
+      <tr><td>Corte</td><td>120,00</td></tr>
+      <tr><td>Alisamento</td><td>100,00</td></tr>
+      <tr><td>Luzes</td><td>180,00</td></tr>
+      <tr><td>Sobrancelhas</td><td>30,00</td></tr>
+      <tr><td>Manicure</td><td>40,00</td></tr>
+      <tr><td>Pedicure</td><td>45,00</td></tr>
+      <tr><td>Pé e Mão</td><td>80,00</td></tr>
+      <tr><td>Escova</td><td>70,00</td></tr>
+    </table>
+  </section>
+
+  <section id="agendamento">
+    <h2>Agende seu horário</h2>
+    <form id="formAgendamento">
+      <h3>Envie seu pedido</h3>
+      
+      <div class="form-group">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" placeholder="(11) 99999-9999" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="servico">Serviço desejado</label>
+        <select id="servico" required>
+          <option value="">Selecione o serviço</option>
+          <option>Corte de Cabelo</option>
+          <option>Alisamento</option>
+          <option>Luzes</option>
+          <option>Sobrancelhas</option>
+          <option>Manicure</option>
+          <option>Pedicure</option>
+          <option>Pé e Mão</option>
+          <option>Escova</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="data">Data desejada</label>
+        <input type="date" id="data" required min="2025-10-21">
+      </div>
+      
+      <div class="form-group">
+        <label for="hora">Horário desejado</label>
+        <input type="time" id="hora" required min="08:00" max="18:00">
+        <small style="color: #777; font-size: 0.8em;">Horário de funcionamento: 08:00 às 18:00</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="mensagem">Observações</label>
+        <textarea id="mensagem" placeholder="Alguma observação? (opcional)" rows="3"></textarea>
+      </div>
+      
+      <p class="aviso">⚠️ O horário solicitado será confirmado após o recebimento da mensagem.</p>
+      
+      <button type="submit">Enviar para WhatsApp</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 | Studio Sil Marques Hair — Beleza e Elegância em Cada Detalhe</p>
+  </footer>
+
+  <!-- Botão flutuante -->
+  <button class="floating-btn" onclick="toggleMenu()"><i class="fa fa-info"></i></button>
+  <div class="social-menu" id="socialMenu">
+    <a href="https://wa.me/5511989321702" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.instagram.com/studiosilmarqueshair?igsh=MXR2ZHJiandjenAyNg==" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+  </div>
+
+  <script>
+    // Mostrar / esconder menu flutuante
+    function toggleMenu() {
+      const menu = document.getElementById("socialMenu");
+      menu.classList.toggle("show");
+    }
+
+    // Formulário WhatsApp
+    document.getElementById("formAgendamento").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const tel = document.getElementById("telefone").value;
+      const servico = document.getElementById("servico").value;
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+      const msg = document.getElementById("mensagem").value;
+
+      // Formatar a mensagem com quebras de linha
+      const texto = `Olá! Gostaria de agendar um horário no Studio Sil Marques Hair.
+      
+*Detalhes do Agendamento:*
+• Nome: ${nome}
+• Telefone: ${tel}
+• Serviço: ${servico}
+• Data: ${data}
+• Horário: ${hora}
+${msg ? `• Observações: ${msg}` : ''}
+
+Por favor, confirme a disponibilidade deste horário. Obrigada!`;
+
+      const url = `https://wa.me/5511989321702?text=${encodeURIComponent(texto)}`;
+      window.open(url, "_blank");
+      
+      // Limpar formulário após envio
+      this.reset();
+    });
+
+    // Animação de aparição ao rolar
+    const sections = document.querySelectorAll("section, .card");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Adicionar funcionalidade aos botões "Agendar" dos serviços
+    document.querySelectorAll('.card .btn').forEach(button => {
+      if (!button.dataset.product) { // Apenas para botões de agendamento (não de produtos)
+        button.addEventListener('click', function() {
+          const servico = this.parentElement.querySelector('h3').textContent;
+          document.getElementById('servico').value = servico;
+          document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    });
+
+    // Adicionar funcionalidade aos botões "Comprar" dos produtos
+    document.querySelectorAll('.btn[data-product]').forEach(button => {
+      button.addEventListener('click', function() {
+        const product = this.dataset.product;
+        const price = this.dataset.price;
+        
+        // Formatar mensagem para compra de produto
+        const texto = `Olá! Gostaria de comprar o produto abaixo:
+        
+*Detalhes do Produto:*
+• Produto: ${product}
+• Preço: R$ ${price}
+
+Por favor, informe a disponibilidade e formas de pagamento. Obrigada!`;
+
+        const url = `https://wa.me/5511989321702?text=${encodeURIComponent(texto)}`;
+        window.open(url, "_blank");
+      });
+    });
+
+    // Formatar data atual como mínimo para o campo de data
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById('data').min = `${yyyy}-${mm}-${dd}`;
+  </script>
+</body>
+</html>
+
+
+
+
+
+
