@@ -42,7 +42,12 @@
       text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
     }
 
-    nav a {
+    /* Menu Desktop */
+    .desktop-nav {
+      display: flex;
+    }
+
+    .desktop-nav a {
       margin: 0 10px;
       text-decoration: none;
       color: #fff;
@@ -50,8 +55,79 @@
       transition: 0.3s;
     }
 
-    nav a:hover {
+    .desktop-nav a:hover {
       color: #ffd1dc;
+    }
+
+    /* Menu Mobile - Hamburguer */
+    .mobile-nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background-color: rgba(184, 10, 92, 0.98);
+      z-index: 2000;
+      transition: right 0.4s ease;
+      padding: 80px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 0;
+      font-size: 1.2em;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+    }
+
+    .mobile-nav a:hover {
+      color: #ffd1dc;
+      padding-left: 10px;
+    }
+
+    .mobile-nav-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8em;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1500;
+      display: none;
+    }
+
+    .overlay.active {
+      display: block;
     }
 
     /* Vídeo de fundo */
@@ -84,21 +160,23 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
-    /* Serviços */
+    /* Serviços - LAYOUT MELHORADO */
     .services {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
       margin-top: 30px;
     }
 
     .card {
       background: rgba(255,255,255,0.95);
       border-radius: 15px;
-      padding: 20px;
+      overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       transition: transform 0.3s, box-shadow 0.3s;
       border: 1px solid rgba(214, 51, 132, 0.1);
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
@@ -106,44 +184,70 @@
       box-shadow: 0 8px 20px rgba(214, 51, 132, 0.15);
     }
 
-    .card img {
+    .card-image {
       width: 100%;
-      border-radius: 15px;
-      height: 180px;
+      height: 240px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border: 2px solid rgba(214, 51, 132, 0.1);
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-image img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .card h3 {
-      margin-top: 10px;
       color: #b80a5c;
+      margin-bottom: 10px;
+      font-size: 1.2em;
     }
 
     .card .price {
-      font-size: 1.2em;
+      font-size: 1.3em;
       font-weight: bold;
       color: #d63384;
       margin: 10px 0;
     }
 
+    .card .description {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
     .btn {
       background: #b80a5c;
       color: #fff;
-      padding: 10px 20px;
+      padding: 12px 20px;
       border: none;
       border-radius: 25px;
       cursor: pointer;
       transition: 0.3s;
       font-weight: 600;
-      margin-top: 10px;
+      margin-top: auto;
+      width: 100%;
     }
 
     .btn:hover {
       background: #d63384;
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
-    /* Tabela de preços */
+    /* Tabela de preços atualizada */
     table {
       width: 90%;
       margin: 30px auto;
@@ -318,28 +422,121 @@
       transform: scale(1.1);
     }
 
-    .estoque-info {
-      color: #777;
-      font-size: 0.9em;
-      margin: 15px 0 30px;
-      font-style: italic;
+    /* Galeria Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      animation: fadeIn 0.3s;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .modal-caption {
+      margin-top: 15px;
+      text-align: center;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background-color: rgba(184, 10, 92, 0.8);
+      border-radius: 25px;
+      max-width: 80%;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 2001;
+    }
+
+    .close:hover {
+      color: #ffd1dc;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -50px;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      transition: 0.3s;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background-color: rgba(0,0,0,0.3);
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    /* Media Queries */
     @media (max-width: 768px) {
       header h1 { font-size: 1.2em; }
-      nav a { margin: 0 5px; font-size: 0.9em; }
-      .card img { height: 130px; }
+      
+      /* Esconder navegação desktop em mobile */
+      .desktop-nav {
+        display: none;
+      }
+      
+      /* Mostrar botão hamburguer em mobile */
+      .mobile-nav-toggle {
+        display: block;
+      }
+      
+      .card-image { height: 200px; }
       .floating-btn { width: 50px; height: 50px; }
       .social-menu a { width: 40px; height: 40px; font-size: 18px; }
       table { width: 100%; font-size: 0.9em; }
       section { padding: 60px 15px; }
+      .services { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+      .modal-content { max-width: 95%; }
+      .modal-caption { font-size: 1em; max-width: 90%; }
     }
 
     @media (max-width: 480px) {
-      header { flex-direction: column; padding: 10px; }
-      header h1 { margin-bottom: 10px; }
-      nav { width: 100%; text-align: center; }
-      nav a { display: inline-block; margin: 0 8px; }
+      header { padding: 12px 15px; }
+      header h1 { font-size: 1.1em; }
+      .mobile-nav { width: 85%; }
     }
   </style>
 </head>
@@ -350,111 +547,133 @@
 
   <header>
     <h1>Studio Sil Marques Hair</h1>
-    <nav>
+    <!-- Menu Desktop -->
+    <nav class="desktop-nav">
       <a href="#servicos">Serviços</a>
-      <a href="#produtos">Produtos</a>
       <a href="#precos">Preços</a>
       <a href="#agendamento">Agendamento</a>
     </nav>
+    
+    <!-- Botão Hamburguer para Mobile -->
+    <button class="mobile-nav-toggle" id="mobileNavToggle">
+      <i class="fas fa-bars"></i>
+    </button>
   </header>
+
+  <!-- Menu Mobile -->
+  <div class="overlay" id="overlay"></div>
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" id="mobileNavClose">
+      <i class="fas fa-times"></i>
+    </button>
+    <a href="#servicos" onclick="closeMobileNav()">Serviços</a>
+    <a href="#precos" onclick="closeMobileNav()">Preços</a>
+    <a href="#agendamento" onclick="closeMobileNav()">Agendamento</a>
+  </nav>
+
+  <h1>Studio Sil Marques Hair</h1>
 
   <section id="servicos">
     <h2>Nossos Serviços</h2>
     <div class="services">
       <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2018/02/22/17/16/hairdresser-3173438_640.jpg" alt="Corte de Cabelo">
-        <h3>Corte de Cabelo</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(0)">
+          <img src="https://cdn.pixabay.com/photo/2018/02/22/17/16/hairdresser-3173438_640.jpg" alt="Corte de Cabelo">
+        </div>
+        <div class="card-content">
+          <h3>Corte de Cabelo</h3>
+          <div class="price">R$ 40,00</div>
+          <p class="description">Corte personalizado de acordo com seu estilo e formato de rosto</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2023/09/03/15/41/ai-generated-8230926_640.jpg" alt="Alisamento">
-        <h3>Alisamento</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(1)">
+          <img src="https://cdn.pixabay.com/photo/2023/09/03/15/41/ai-generated-8230926_640.jpg" alt="Alisamento">
+        </div>
+        <div class="card-content">
+          <h3>Alisamento</h3>
+          <div class="price">À partir de R$ 120,00</div>
+          <p class="description">Tratamento para cabelos lisos e disciplinados com produtos de alta qualidade</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2015/12/17/09/57/colors-1097117_640.jpg" alt="Luzes">
-        <h3>Luzes</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(2)">
+          <img src="https://cdn.pixabay.com/photo/2015/12/17/09/57/colors-1097117_640.jpg" alt="Luzes">
+        </div>
+        <div class="card-content">
+          <h3>Luzes</h3>
+          <div class="price">À partir de R$ 350,00</div>
+          <p class="description">Realce seus traços naturais com técnicas de coloração profissional</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2024/07/20/06/18/eyebrow-8907650_640.jpg" alt="Sobrancelhas">
-        <h3>Sobrancelhas</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(3)">
+          <img src="https://cdn.pixabay.com/photo/2024/07/20/06/18/eyebrow-8907650_640.jpg" alt="Sobrancelhas">
+        </div>
+        <div class="card-content">
+          <h3>Sobrancelhas Designer</h3>
+          <div class="price">Simples: R$ 25,00 | Com Henna: R$ 45,00</div>
+          <p class="description">Design e modelagem para realçar a expressão do seu rosto</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2018/10/06/15/42/manicure-3728091_640.jpg" alt="Manicure">
-        <h3>Manicure</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(4)">
+          <img src="https://cdn.pixabay.com/photo/2018/10/06/15/42/manicure-3728091_640.jpg" alt="Manicure">
+        </div>
+        <div class="card-content">
+          <h3>Manicure</h3>
+          <div class="price">R$ 30,00</div>
+          <p class="description">Cuidados completos para suas mãos com as melhores técnicas</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2021/01/06/09/12/feet-5893684_640.jpg" alt="Pedicure">
-        <h3>Pedicure</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(5)">
+          <img src="https://cdn.pixabay.com/photo/2021/01/06/09/12/feet-5893684_640.jpg" alt="Pedicure">
+        </div>
+        <div class="card-content">
+          <h3>Pedicure</h3>
+          <div class="price">R$ 35,00</div>
+          <p class="description">Tratamento completo para pés saudáveis e bem cuidados</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://media.istockphoto.com/id/1266250353/pt/foto/female-hands-and-feet-on-white-background-studio-shoot.jpg?s=612x612&w=0&k=20&c=4l_pSddZDAqVsxUGc0gjcC91NkV7NkSbVRawt9dXe10=" alt="Pé e Mão">
-        <h3>Pé e Mão</h3>
-        <button class="btn">Agendar</button>
+        <div class="card-image" onclick="openGallery(6)">
+          <img src="https://media.istockphoto.com/id/1219532888/pt/foto/hairdresser-straightens-hair-of-woman.jpg?s=612x612&w=0&k=20&c=TC-OrmVYO4DrgI2dTIQzT6HGVjWZvHeER4xBgcfg6Fk=" alt="Escova">
+        </div>
+        <div class="card-content">
+          <h3>Escova</h3>
+          <div class="price">À partir de R$ 50,00</div>
+          <p class="description">Escova profissional para cabelos lisos, brilhantes e disciplinados</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://media.istockphoto.com/id/1219532888/pt/foto/hairdresser-straightens-hair-of-woman.jpg?s=612x612&w=0&k=20&c=TC-OrmVYO4DrgI2dTIQzT6HGVjWZvHeER4xBgcfg6Fk=" alt="Escova">
-        <h3>Escova</h3>
-        <button class="btn">Agendar</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="produtos">
-    <h2>Nossos Produtos</h2>
-    <p class="estoque-info">* Produtos disponíveis enquanto durarem os estoques</p>
-    <div class="services">
-      <div class="card">
-        <img src="https://ikesaki.vtexassets.com/arquivos/ids/332046-800-auto?v=638465383471600000&width=800&height=auto&aspect=true" alt="Óleo Capilar">
-        <h3> Batom Dailus Matte Desenrolada </h3>
-        <div class="price">R$ 18,90 no pix</div>
-        <button class="btn" data-product="Óleo Capilar" data-price="45,00">Comprar</button>
+        <div class="card-image" onclick="openGallery(7)">
+          <img src="https://cdn.pixabay.com/photo/2023/10/05/19/39/ai-generated-8296813_640.jpg" alt="Coloração">
+        </div>
+        <div class="card-content">
+          <h3>Coloração</h3>
+          <div class="price">À partir de R$ 70,00</div>
+          <p class="description">Coloração profissional com produtos de alta qualidade e durabilidade</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
       <div class="card">
-        <img src="https://ikesaki.vtexassets.com/arquivos/ids/301485-800-auto?v=638131130597430000&width=800&height=auto&aspect=true" alt="Shampoo Revitalizante">
-        <h3>Gloss Labial Payot Ibiza</h3>
-        <div class="price">R$ 36,00</div>
-        <button class="btn" data-product="Shampoo Revitalizante" data-price="35,00">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://ikesaki.vtexassets.com/arquivos/ids/337985-800-auto?v=638554542814100000&width=800&height=auto&aspect=true" alt="Mascara de Tratamento">
-        <h3>Bastão 3 em 1 Ollie Blush, Batom E Sombra</h3>
-        <div class="price">R$ 90,00</div>
-        <button class="btn" data-product="Máscara de Tratamento" data-price="55,00">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://ikesaki.vtexassets.com/arquivos/ids/276817-800-auto?v=637782199848500000&width=800&height=auto&aspect=true" alt="Sérum Antifrizz">
-        <h3>Pó Compacto Dailus Vegano Ultrafino D5 Médio</h3>
-        <div class="price">R$ 24,00</div>
-        <button class="btn" data-product="Sérum Antifrizz" data-price="60,00">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://ikesaki.vtexassets.com/arquivos/ids/327448-800-auto?v=638406007303070000&width=800&height=auto&aspect=true" alt="Condicionador Nutritivo">
-        <h3>Shampoo Haskell Bendito Loiro 500ml</h3>
-        <div class="price">R$ 62,00</div>
-        <button class="btn" data-product="Condicionador Nutritivo" data-price="38,00">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://ikesaki.vtexassets.com/arquivos/ids/317921-800-auto?v=638312640066770000&width=800&height=auto&aspect=true" alt="Spray Termoprotetor">
-        <h3>Condicionador Lacan Pós Química 300ml</h3>
-        <div class="price">R$ 42,00</div>
-        <button class="btn" data-product="Spray Termoprotetor" data-price="42,00">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://acdn-us.mitiendanube.com/stores/001/636/425/products/argola-tubo-bold-prata-pose-2-56c5173fb1f66bfe0417544900709701-640-0.webp" alt="Spray Termoprotetor">
-        <h3>Argola Tubo Bold - Prata</h3>
-        <div class="price">R$ 50,00</div>
-        <button class="btn" data-product="Spray Termoprotetor" data-price="42,00">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://acdn-us.mitiendanube.com/stores/001/636/425/products/19-1e1ecb46f179e67f0a17501717868373-640-0.webp" alt="Spray Termoprotetor">
-        <h3>Conjunto Jasmine - Prata</h3>
-        <div class="price">R$ 99,00</div>
-        <button class="btn" data-product="Spray Termoprotetor" data-price="42,00">Comprar</button>
+        <div class="card-image" onclick="openGallery(8)">
+          <img src="https://cdn.pixabay.com/photo/2020/08/08/15/05/hair-5473204_640.jpg" alt="Cronograma Capilar">
+        </div>
+        <div class="card-content">
+          <h3>Cronograma Capilar</h3>
+          <div class="price">À partir de R$ 250,00</div>
+          <p class="description">Tratamento personalizado para recuperação e saúde dos fios</p>
+          <button class="btn">Agendar</button>
+        </div>
       </div>
     </div>
   </section>
@@ -463,14 +682,16 @@
     <h2>Tabela de Preços</h2>
     <table>
       <tr><th>Serviço</th><th>Valor (R$)</th></tr>
-      <tr><td>Corte</td><td>120,00</td></tr>
-      <tr><td>Alisamento</td><td>100,00</td></tr>
-      <tr><td>Luzes</td><td>180,00</td></tr>
-      <tr><td>Sobrancelhas</td><td>30,00</td></tr>
-      <tr><td>Manicure</td><td>40,00</td></tr>
-      <tr><td>Pedicure</td><td>45,00</td></tr>
-      <tr><td>Pé e Mão</td><td>80,00</td></tr>
-      <tr><td>Escova</td><td>70,00</td></tr>
+      <tr><td>Corte</td><td>40,00</td></tr>
+      <tr><td>Alisamento</td><td>À partir de 120,00</td></tr>
+      <tr><td>Luzes</td><td>À partir de 350,00</td></tr>
+      <tr><td>Sobrancelhas Designer Simples</td><td>25,00</td></tr>
+      <tr><td>Sobrancelhas Designer com Henna</td><td>45,00</td></tr>
+      <tr><td>Manicure</td><td>30,00</td></tr>
+      <tr><td>Pedicure</td><td>35,00</td></tr>
+      <tr><td>Escova</td><td>À partir de 50,00</td></tr>
+      <tr><td>Coloração</td><td>À partir de 70,00</td></tr>
+      <tr><td>Cronograma Capilar</td><td>À partir de 250,00</td></tr>
     </table>
   </section>
 
@@ -496,11 +717,13 @@
           <option>Corte de Cabelo</option>
           <option>Alisamento</option>
           <option>Luzes</option>
-          <option>Sobrancelhas</option>
+          <option>Sobrancelhas Designer Simples</option>
+          <option>Sobrancelhas Designer com Henna</option>
           <option>Manicure</option>
           <option>Pedicure</option>
-          <option>Pé e Mão</option>
           <option>Escova</option>
+          <option>Coloração</option>
+          <option>Cronograma Capilar</option>
         </select>
       </div>
       
@@ -533,12 +756,44 @@
   <!-- Botão flutuante -->
   <button class="floating-btn" onclick="toggleMenu()"><i class="fa fa-info"></i></button>
   <div class="social-menu" id="socialMenu">
-    <a href="https://wa.me/5511989321702" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/5511957615658" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/studiosilmarqueshair?igsh=MXR2ZHJiandjenAyNg==" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+  </div>
+
+  <!-- Galeria Modal -->
+  <div id="galleryModal" class="modal">
+    <span class="close" onclick="closeGallery()">&times;</span>
+    <div class="modal-content-container">
+      <img class="modal-content" id="modalImage" src="">
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
   </div>
 
   <script>
+    // Menu Mobile
+    const mobileNavToggle = document.getElementById('mobileNavToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavClose = document.getElementById('mobileNavClose');
+    const overlay = document.getElementById('overlay');
+
+    function openMobileNav() {
+      mobileNav.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    mobileNavToggle.addEventListener('click', openMobileNav);
+    mobileNavClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+
     // Mostrar / esconder menu flutuante
     function toggleMenu() {
       const menu = document.getElementById("socialMenu");
@@ -568,7 +823,7 @@ ${msg ? `• Observações: ${msg}` : ''}
 
 Por favor, confirme a disponibilidade deste horário. Obrigada!`;
 
-      const url = `https://wa.me/5511989321702?text=${encodeURIComponent(texto)}`;
+      const url = `https://wa.me/5511957615658?text=${encodeURIComponent(texto)}`;
       window.open(url, "_blank");
       
       // Limpar formulário após envio
@@ -586,32 +841,10 @@ Por favor, confirme a disponibilidade deste horário. Obrigada!`;
 
     // Adicionar funcionalidade aos botões "Agendar" dos serviços
     document.querySelectorAll('.card .btn').forEach(button => {
-      if (!button.dataset.product) { // Apenas para botões de agendamento (não de produtos)
-        button.addEventListener('click', function() {
-          const servico = this.parentElement.querySelector('h3').textContent;
-          document.getElementById('servico').value = servico;
-          document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
-        });
-      }
-    });
-
-    // Adicionar funcionalidade aos botões "Comprar" dos produtos
-    document.querySelectorAll('.btn[data-product]').forEach(button => {
       button.addEventListener('click', function() {
-        const product = this.dataset.product;
-        const price = this.dataset.price;
-        
-        // Formatar mensagem para compra de produto
-        const texto = `Olá! Gostaria de comprar o produto abaixo:
-        
-*Detalhes do Produto:*
-• Produto: ${product}
-• Preço: R$ ${price}
-
-Por favor, informe a disponibilidade e formas de pagamento. Obrigada!`;
-
-        const url = `https://wa.me/5511989321702?text=${encodeURIComponent(texto)}`;
-        window.open(url, "_blank");
+        const servico = this.parentElement.querySelector('h3').textContent;
+        document.getElementById('servico').value = servico;
+        document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
       });
     });
 
@@ -621,9 +854,101 @@ Por favor, informe a disponibilidade e formas de pagamento. Obrigada!`;
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     document.getElementById('data').min = `${yyyy}-${mm}-${dd}`;
+
+    // Galeria de Imagens
+    const galleryImages = [
+      {
+        src: "https://cdn.pixabay.com/photo/2018/02/22/17/16/hairdresser-3173438_640.jpg",
+        caption: "Corte de Cabelo - R$ 40,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2023/09/03/15/41/ai-generated-8230926_640.jpg",
+        caption: "Alisamento - À partir de R$ 120,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2015/12/17/09/57/colors-1097117_640.jpg",
+        caption: "Luzes - À partir de R$ 350,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2024/07/20/06/18/eyebrow-8907650_640.jpg",
+        caption: "Sobrancelhas Designer - Simples: R$ 25,00 | Com Henna: R$ 45,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2018/10/06/15/42/manicure-3728091_640.jpg",
+        caption: "Manicure - R$ 30,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2021/01/06/09/12/feet-5893684_640.jpg",
+        caption: "Pedicure - R$ 35,00"
+      },
+      {
+        src: "https://media.istockphoto.com/id/1219532888/pt/foto/hairdresser-straightens-hair-of-woman.jpg?s=612x612&w=0&k=20&c=TC-OrmVYO4DrgI2dTIQzT6HGVjWZvHeER4xBgcfg6Fk=",
+        caption: "Escova - À partir de R$ 50,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2023/10/05/19/39/ai-generated-8296813_640.jpg",
+        caption: "Coloração - À partir de R$ 70,00"
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2020/08/08/15/05/hair-5473204_640.jpg",
+        caption: "Cronograma Capilar - À partir de R$ 250,00"
+      }
+    ];
+
+    let currentSlideIndex = 0;
+
+    function openGallery(index) {
+      currentSlideIndex = index;
+      document.getElementById("galleryModal").style.display = "block";
+      showSlide(currentSlideIndex);
+    }
+
+    function closeGallery() {
+      document.getElementById("galleryModal").style.display = "none";
+    }
+
+    function changeSlide(n) {
+      showSlide(currentSlideIndex += n);
+    }
+
+    function showSlide(n) {
+      const slides = galleryImages;
+      
+      if (n >= slides.length) {
+        currentSlideIndex = 0;
+      } else if (n < 0) {
+        currentSlideIndex = slides.length - 1;
+      } else {
+        currentSlideIndex = n;
+      }
+      
+      document.getElementById("modalImage").src = slides[currentSlideIndex].src;
+      document.getElementById("modalCaption").innerHTML = slides[currentSlideIndex].caption;
+    }
+
+    // Fechar modal ao clicar fora da imagem
+    document.getElementById("galleryModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeGallery();
+      }
+    });
+
+    // Navegação por teclado
+    document.addEventListener("keydown", function(e) {
+      if (document.getElementById("galleryModal").style.display === "block") {
+        if (e.key === "Escape") {
+          closeGallery();
+        } else if (e.key === "ArrowLeft") {
+          changeSlide(-1);
+        } else if (e.key === "ArrowRight") {
+          changeSlide(1);
+        }
+      }
+    });
   </script>
 </body>
 </html>
+
 
 
 
