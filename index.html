@@ -143,14 +143,7 @@
     section {
       padding: 80px 20px;
       text-align: center;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
+      /* REMOVIDO: animação de entrada que causava problemas */
     }
 
     h2 {
@@ -830,14 +823,7 @@ Por favor, confirme a disponibilidade deste horário. Obrigada!`;
       this.reset();
     });
 
-    // Animação de aparição ao rolar
-    const sections = document.querySelectorAll("section, .card");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    }, { threshold: 0.2 });
-    sections.forEach(sec => observer.observe(sec));
+    // REMOVIDO: Animação de aparição ao rolar que causava problemas
 
     // Adicionar funcionalidade aos botões "Agendar" dos serviços
     document.querySelectorAll('.card .btn').forEach(button => {
@@ -948,6 +934,7 @@ Por favor, confirme a disponibilidade deste horário. Obrigada!`;
   </script>
 </body>
 </html>
+
 
 
 
